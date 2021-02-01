@@ -1,0 +1,25 @@
+version: '3'
+services:
+    api:
+        build: ./
+        command: npm run dev
+        restart: always
+        ports:
+            - 7000:7000
+        volumes:
+
+            - ./:/var/www/html
+        environment:
+            - DB_HOST=db
+            - DB_USER=test_user
+            - DB_PASS=root
+            - DB_NAME=testDb
+        depends_on:
+            - db
+    db:
+        image: mongo:latest
+        restart: always
+        ports:
+            - 2717:2717
+        volumes:
+            - ./docker/data:/var/www/data/db
